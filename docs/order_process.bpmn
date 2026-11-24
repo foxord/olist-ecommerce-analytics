@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="OlistDefinitions" targetNamespace="https://github.com/foxord/olist-ecommerce-analytics">
+  <bpmn:collaboration id="OlistCollaboration">
+    <bpmn:participant id="Marketplace" name="Заказ на маркетплейсе" processRef="OrderProcess" />
+  </bpmn:collaboration>
+  <bpmn:process id="OrderProcess" isExecutable="false">
+    <bpmn:laneSet id="Roles">
+      <bpmn:lane id="Customer" name="Клиент">
+        <bpmn:flowNodeRef>Arrival</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Purchase</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Got</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Delivered</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Platform" name="Площадка">
+        <bpmn:flowNodeRef>Record</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Decision</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Cancel</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Canceled</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Approve</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Seller" name="Продавец">
+        <bpmn:flowNodeRef>Prepare</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Transfer</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Carrier" name="Перевозчик">
+        <bpmn:flowNodeRef>Carry</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Arrival" name="Заказ начат">
+      <bpmn:outgoing>Flow1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Purchase" name="Оформить заказ">
+      <bpmn:incoming>Flow1</bpmn:incoming>
+      <bpmn:outgoing>Flow2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Record" name="Зарегистрировать заказ">
+      <bpmn:incoming>Flow2</bpmn:incoming>
+      <bpmn:outgoing>Flow3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Decision" name="Подтверждён?">
+      <bpmn:incoming>Flow3</bpmn:incoming>
+      <bpmn:outgoing>Flow4</bpmn:outgoing>
+      <bpmn:outgoing>Flow6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Cancel" name="Зафиксировать отмену">
+      <bpmn:incoming>Flow4</bpmn:incoming>
+      <bpmn:outgoing>Flow5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="Canceled" name="Отменён">
+      <bpmn:incoming>Flow5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="Approve" name="Подтвердить заказ">
+      <bpmn:incoming>Flow6</bpmn:incoming>
+      <bpmn:outgoing>Flow7</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Prepare" name="Подготовить отправление">
+      <bpmn:incoming>Flow7</bpmn:incoming>
+      <bpmn:outgoing>Flow8</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Transfer" name="Передать перевозчику">
+      <bpmn:incoming>Flow8</bpmn:incoming>
+      <bpmn:outgoing>Flow9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Carry" name="Доставить покупателю">
+      <bpmn:incoming>Flow9</bpmn:incoming>
+      <bpmn:outgoing>Flow10</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Got" name="Получить заказ">
+      <bpmn:incoming>Flow10</bpmn:incoming>
+      <bpmn:outgoing>Flow11</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="Delivered" name="Доставлен">
+      <bpmn:incoming>Flow11</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow1" sourceRef="Arrival" targetRef="Purchase" />
+    <bpmn:sequenceFlow id="Flow2" sourceRef="Purchase" targetRef="Record" />
+    <bpmn:sequenceFlow id="Flow3" sourceRef="Record" targetRef="Decision" />
+    <bpmn:sequenceFlow id="Flow4" sourceRef="Decision" targetRef="Cancel" name="отмена" />
+    <bpmn:sequenceFlow id="Flow5" sourceRef="Cancel" targetRef="Canceled" />
+    <bpmn:sequenceFlow id="Flow6" sourceRef="Decision" targetRef="Approve" name="подтверждён" />
+    <bpmn:sequenceFlow id="Flow7" sourceRef="Approve" targetRef="Prepare" />
+    <bpmn:sequenceFlow id="Flow8" sourceRef="Prepare" targetRef="Transfer" />
+    <bpmn:sequenceFlow id="Flow9" sourceRef="Transfer" targetRef="Carry" />
+    <bpmn:sequenceFlow id="Flow10" sourceRef="Carry" targetRef="Got" />
+    <bpmn:sequenceFlow id="Flow11" sourceRef="Got" targetRef="Delivered" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram">
+    <bpmndi:BPMNPlane id="Plane" bpmnElement="OlistCollaboration">
+      <bpmndi:BPMNShape id="Marketplace_di" bpmnElement="Marketplace" isHorizontal="true">
+        <dc:Bounds x="4" y="115" width="1501" height="444" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Customer_di" bpmnElement="Customer" isHorizontal="true">
+        <dc:Bounds x="36" y="115" width="1469" height="111" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Platform_di" bpmnElement="Platform" isHorizontal="true">
+        <dc:Bounds x="36" y="226" width="1469" height="111" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Seller_di" bpmnElement="Seller" isHorizontal="true">
+        <dc:Bounds x="36" y="337" width="1469" height="111" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Carrier_di" bpmnElement="Carrier" isHorizontal="true">
+        <dc:Bounds x="36" y="448" width="1469" height="111" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Arrival_di" bpmnElement="Arrival">
+        <dc:Bounds x="198.0" y="153.0" width="34" height="34" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Purchase_di" bpmnElement="Purchase">
+        <dc:Bounds x="267.5" y="141.0" width="125" height="58" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Record_di" bpmnElement="Record">
+        <dc:Bounds x="397.5" y="252.0" width="155" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Decision_di" bpmnElement="Decision">
+        <dc:Bounds x="577.5" y="254.5" width="55" height="55" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Cancel_di" bpmnElement="Cancel">
+        <dc:Bounds x="687.0" y="228.0" width="144" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Canceled_di" bpmnElement="Canceled">
+        <dc:Bounds x="873.0" y="236.0" width="34" height="34" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Approve_di" bpmnElement="Approve">
+        <dc:Bounds x="689.5" y="285.0" width="135" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Prepare_di" bpmnElement="Prepare">
+        <dc:Bounds x="837.5" y="362.0" width="145" height="62" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Transfer_di" bpmnElement="Transfer">
+        <dc:Bounds x="1030.0" y="362.0" width="150" height="62" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Carry_di" bpmnElement="Carry">
+        <dc:Bounds x="1197.5" y="473.0" width="155" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Got_di" bpmnElement="Got">
+        <dc:Bounds x="1298.0" y="140.0" width="130" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Delivered_di" bpmnElement="Delivered">
+        <dc:Bounds x="1453.0" y="153.0" width="34" height="34" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow1_di" bpmnElement="Flow1">
+        <di:waypoint x="232" y="170" />
+        <di:waypoint x="267" y="170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow2_di" bpmnElement="Flow2">
+        <di:waypoint x="392" y="170" />
+        <di:waypoint x="475" y="170" />
+        <di:waypoint x="475" y="252" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow3_di" bpmnElement="Flow3">
+        <di:waypoint x="552" y="282" />
+        <di:waypoint x="578" y="282" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow4_di" bpmnElement="Flow4">
+        <di:waypoint x="605" y="255" />
+        <di:waypoint x="605" y="253" />
+        <di:waypoint x="687" y="253" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow5_di" bpmnElement="Flow5">
+        <di:waypoint x="831" y="253" />
+        <di:waypoint x="873" y="253" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow6_di" bpmnElement="Flow6">
+        <di:waypoint x="605" y="309" />
+        <di:waypoint x="605" y="310" />
+        <di:waypoint x="690" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow7_di" bpmnElement="Flow7">
+        <di:waypoint x="825" y="310" />
+        <di:waypoint x="910" y="310" />
+        <di:waypoint x="910" y="362" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow8_di" bpmnElement="Flow8">
+        <di:waypoint x="982" y="393" />
+        <di:waypoint x="1030" y="393" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow9_di" bpmnElement="Flow9">
+        <di:waypoint x="1180" y="393" />
+        <di:waypoint x="1275" y="393" />
+        <di:waypoint x="1275" y="473" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow10_di" bpmnElement="Flow10">
+        <di:waypoint x="1352" y="503" />
+        <di:waypoint x="1363" y="503" />
+        <di:waypoint x="1363" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow11_di" bpmnElement="Flow11">
+        <di:waypoint x="1428" y="170" />
+        <di:waypoint x="1453" y="170" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
