@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Olist · Аналитика маркетплейса</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="extract.js" defer></script>
+  <script src="report.js" defer></script>
+</head>
+<body>
+  <header class="mast"><div class="mast-inner">
+    <a class="brand" href="#overview" aria-label="Olist, обзор"><i aria-hidden="true"><b></b><b></b><b></b></i>olist</a>
+    <span class="product">Аналитика маркетплейса</span>
+    <nav aria-label="Страницы дашборда">
+      <a href="#overview">Обзор</a><a href="#customers">Клиенты</a><a href="#delivery">Логистика и отзывы</a>
+    </nav>
+  </div></header>
+  <main>
+    <div class="heading"><div><h1 id="page-title">Обзор продаж</h1><p id="question">Как менялись продажи и какие штаты давали основной оборот?</p></div>
+      <span class="scope">Бразилия &nbsp; / &nbsp; BRL</span></div>
+    <form class="filters" aria-label="Фильтры отчёта">
+      <label>С месяца<select id="start"></select></label><label>По месяц<select id="end"></select></label>
+      <label>Штат покупателя<select id="state"></select></label><label>Категория товара<select id="category"></select></label>
+      <button type="reset">Сбросить</button>
+    </form>
+    <section id="report" aria-live="polite"><p>Загружаем модель заказов…</p></section>
+    <footer>Доставленные заказы по месяцу покупки · Суммы в бразильских реалах (R$) · <a href="https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce">Данные Olist</a></footer>
+  </main>
+</body>
+</html>

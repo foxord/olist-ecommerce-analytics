@@ -1,0 +1,63 @@
+:root{font-family:Inter,"Segoe UI",Arial,sans-serif;color:#172b3c;background:#f2f5f6;font-size:16px;--blue:#244ece;--teal:#087a76;--muted:#536775;--border:#d9e1e5;}
+*{box-sizing:border-box}
+body{margin:0}
+.mast{background:#112834;color:white}
+.mast-inner,main{width:min(1540px,100%);margin:auto;padding-inline:clamp(16px,3.4vw,60px)}
+.mast-inner{display:flex;align-items:center;gap:22px;min-height:66px}
+.brand{display:flex;align-items:center;gap:9px;color:white;text-decoration:none;font-family:Arial,sans-serif;font-size:2rem;font-weight:760;letter-spacing:-2px}
+.brand i{display:flex;align-items:flex-end;gap:3px;height:23px}
+.brand b{display:block;width:5px;height:65%;background:#78ddd0;border-radius:1px}
+.brand b:nth-child(2){height:100%}.brand b:last-child{height:83%}
+.product{border-left:1px solid #54707a;padding-left:20px;color:#d8e7eb;font-size:.89rem}
+nav{display:flex;align-self:stretch;margin-left:auto;gap:9px}
+nav a{display:flex;align-items:center;color:#ccdade;text-decoration:none;border-bottom:3px solid transparent;padding:3px 12px 0;font-weight:550;font-size:.93rem}
+nav a[aria-current="page"]{border-color:#70dbce;color:white;background:#203a46}
+nav a:hover{color:white;background:#294451}
+main{padding-block:29px 20px}
+.heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:10px}
+h1,h2,p{margin:0}
+h1{font-size:clamp(2rem,3.1vw,3rem);font-weight:650;line-height:1.12;letter-spacing:-.055em}
+.heading p{margin-top:7px;color:var(--muted)}
+.scope{font-size:.87rem;white-space:nowrap;color:var(--muted)}
+.filters{display:grid;grid-template-columns:1fr 1fr 1fr 1.55fr auto;gap:16px;align-items:end;padding:15px 19px 17px;background:#e7edef;border:1px solid var(--border);border-radius:10px;margin-bottom:16px}
+.filters label{font-size:.83rem;font-weight:600;color:#38515d}
+select,button{font:inherit}
+select{appearance:none;display:block;width:100%;border:1px solid #b6c6ca;border-radius:5px;color:#203146;padding:8px 31px 8px 10px;margin-top:5px;background:white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%2338515d' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 10px center;font-size:.91rem;font-weight:500}
+button{border:0;background:transparent;color:#234e80;cursor:pointer;padding:9px 3px;font-size:.88rem}
+button:hover{text-decoration:underline}a:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #e6a544;outline-offset:2px}
+.kpis{display:grid;grid-template-columns:repeat(var(--count),minmax(0,1fr));gap:1px;border:1px solid var(--border);background:var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px}
+.kpi{background:white;padding:18px clamp(12px,1.5vw,24px)}
+.kpi .label{font-size:.88rem;color:#455d69;font-weight:550}
+.kpi strong{display:block;font-variant-numeric:tabular-nums;font-size:clamp(1.28rem,2.1vw,2.32rem);letter-spacing:-.055em;line-height:1.22;margin:7px 0 4px;color:#132833;white-space:nowrap}
+.kpi:first-child{background:#e9f2fd}.kpi:first-child strong{color:#2044a0}
+.hint,.caption,footer,.meta{font-size:.82rem;color:var(--muted);line-height:1.4}
+.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px}
+.card{background:white;padding:19px 22px 16px;border:1px solid var(--border);border-radius:10px;min-width:0}
+h2{font-size:1.24rem;font-weight:650;letter-spacing:-.035em}
+.caption{margin:4px 0 13px}
+.wide{grid-column:1/-1}
+.plot{display:block;width:100%;height:auto;overflow:visible}
+.plot text{font-family:inherit;font-size:11px;fill:var(--muted)}
+.series{display:flex;align-items:center;gap:8px;font-size:.84rem;font-weight:600;margin:7px 0 0}
+.series::before{content:"";display:block;width:15px;height:3px;background:var(--blue);border-radius:3px}
+.series.teal::before{background:var(--teal)}
+.bars{display:grid;gap:14px;padding:6px 0 10px}
+.bar-title{display:flex;justify-content:space-between;gap:10px;font-size:.9rem;margin-bottom:5px}.bar-title b{font-size:.88rem;font-weight:600}
+.bar-track{height:8px;background:#eef3f5;border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;background:var(--blue)}.teal .bar-fill{background:var(--teal)}
+.score{display:grid;grid-template-columns:minmax(110px,1fr) 2fr 49px;gap:8px;align-items:center;margin:15px 0;font-size:.91rem}
+.score strong{justify-self:end;color:var(--teal)}
+.score .bar-fill{background:var(--teal)}
+.scroll{overflow:auto;max-height:390px}
+table{width:100%;border-collapse:separate;border-spacing:2px;font-size:.82rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+th,td{text-align:right;padding:5px 8px}
+th{font-weight:600}
+thead th{position:sticky;top:0;background:white;color:#415866}
+th:first-child,td:first-child{text-align:left}
+.heat td{text-align:center;border-radius:2px}.heat td:first-child{text-align:right}.heat td.future{color:#74868d;background:#f2f5f6}
+.note{margin:13px 0 0;font-size:.83rem;color:var(--muted)}
+.empty{background:white;border:1px solid var(--border);border-radius:10px;padding:30px;font-size:1.08rem}
+footer{padding:15px 2px}footer a{color:#365e86}
+details{font-size:.83rem;color:var(--muted);margin-top:9px}summary{cursor:pointer}details .scroll{margin-top:7px}
+@media(max-width:1000px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.kpis.four{grid-template-columns:repeat(4,minmax(0,1fr))}.product{display:none}.grid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}.filters{gap:10px}}
+@media(max-width:740px){.mast-inner{min-height:0;flex-wrap:wrap;gap:3px;padding-top:7px}.brand{font-size:1.65rem}.product{display:block;padding-left:10px;margin-left:9px}nav{margin:0;width:100%;gap:0}nav a{padding:9px;font-size:.84rem}.heading{align-items:start}.scope{display:none}.filters{grid-template-columns:repeat(2,minmax(0,1fr));padding:12px}.filters button{justify-self:start;padding:3px}.grid{grid-template-columns:1fr}.kpis,.kpis.four{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding-top:18px}.card{padding:16px}.kpi{padding:12px}.kpi strong{font-size:1.5rem}.caption{margin-bottom:9px}}
